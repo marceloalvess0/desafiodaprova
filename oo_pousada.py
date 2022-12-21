@@ -110,13 +110,35 @@ class CheckOut(CheckIn):
         else :
             troco=dinhero - conta
             print(f'seu troco foi {troco} e sua conta foi {conta}')
-class ListaHostedes():
-   pass
-
-h1 = Hospede('nome','11122233344',18,'sara@gmail.com')
-h1 = CheckIn('10/03/2022')
-h1.valida_data()
-h1 = CheckOut('10/03/2022','10/04/2022')
-h1.valida_data()
-h1.quant_dias('10/03/2022','10/04/2022')
-h1.conta_pagar(1550)
+class ListaHospedes():
+    def __init__(self,nome,hospede):
+        self.nome=nome
+        self.hospede=hospede
+    def __getitem__ (self,item) :
+        return self.hospede[item]
+    @property
+    def listagem (self) :
+        return self.hospede
+    @property
+    def __len__ (self) :
+        return len(self.hospede)
+sara = Hospede('sara','11122233344',18,'sara@gmail.com')
+sara = CheckIn('10/03/2022')
+sara.valida_data()
+sara = CheckOut('10/03/2022','10/04/2022')
+sara.valida_data()
+sara.quant_dias('10/03/2022','10/04/2022')
+sara.conta_pagar(1550)
+ray = Hospede('ray','11122233334',20,'ray@gmail.com')
+ray = CheckIn('17/03/2022')
+ray.valida_data()
+ray = CheckOut('17/03/2022','18/04/2022')
+ray.valida_data()
+ray.quant_dias('17/03/2022','18/04/2022')
+ray.conta_pagar(2000)
+lista_hospedes=['sara','11122233344',18,'sara@gmail.com'],['ray','11122233334',20,'ray@gmail.com']
+lista_visitas=ListaHospedes('visitas',lista_hospedes)
+c=1
+for v in lista_visitas.listagem:
+    print(f'hospede {c} tem os agurmentos {v}')
+    c+=1
