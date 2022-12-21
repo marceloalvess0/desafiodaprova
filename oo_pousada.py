@@ -54,8 +54,18 @@ class CheckIn():
             print("Data válida")
         else:
             raise ValueError ("Data inválida")
-class CheckOut(Hospede):
-    pass
+class CheckOut():
+    def __init__(self,data_saida):
+        self.data_saida = data_saida
+        
+    def valida_data(self):
+        padrao = re.compile("[1-3][0-9]/[0-1][0-9]/[1-9][0-9]{3}")
+        match = padrao.match()
+        if match:
+            print("Data válida")
+        else:
+            raise ValueError ("Data inválida")
+    
 class ListaHostedes():
     pass
 h1 = Hospede('nome','11122233344',16,'sara@gmail.com')
