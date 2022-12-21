@@ -69,12 +69,17 @@ class CheckIn():
             raise ValueError ("Data inválida")
     def formata_data(self):
         self.data_entrada = datetime.strptime(self.data_entrada, "%d/%m/%Y")
-        print(self.data_entrada)
         return self.data_entrada
+    
+    def __str__(self):
+        return f'A data de entrada é {self.data_entrada}'
+    
     
 class CheckOut():
     def __init__(self,data_saida):
         self.data_saida = data_saida
+        self.dias = 0
+        self.valor_estadia = 50
         
     def valida_data(self):
         padrao = re.compile("[1-3][0-9]/[0-1][0-9]/[1-9][0-9]{3}")
@@ -85,20 +90,27 @@ class CheckOut():
             raise ValueError ("Data inválida")
     def formata_data(self):
         self.data_saida = datetime.strptime(self.data_saida, "%d/%m/%Y")
-        print(self.data_saida)
         return self.data_saida
     
-class ListaHospedes():
+    ##def quantidade_dias(self):
+      ##  dias = self.data_saida-self.data_entrada
+        ##self.dias += dias
+        ##self.valor_estadia = self.dias
+        ##return self.dias
+    
+    def __str__(self):
+        return f'A data de saída é {self.data_saida}'   
+
+class ListaHospedes(Hospede):
     pass
 
-
 hospede = CheckIn("10/09/2000")
-dia_entrada = hospede.formata_data()
 hospede1 = CheckOut("13/09/2000")
-dia_saida =hospede1.formata_data()
-quantidade_dias = abs(dia_saida - dia_entrada)
+## colocar em função
 print(hospede)
-print(quantidade_dias)
+print(hospede1)
 
 hospede = Hospede('joao','111.222.333-44', 18,'monteirowelley7@gmail.com')
 print(hospede)
+minha_lista = ListaHospedes('joao','111.222.333-44', 18,'monteirowelley7@gmail.com')
+
