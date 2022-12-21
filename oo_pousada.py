@@ -21,15 +21,35 @@ class Hospede :
         self.idade=idade
         self.email=email
     def valida_cpf(self):
+        self.cpf = str(self.cpf)
         padrao = re.compile("([0-9]{3}.?){2}[0-9]{3}-?[0-9]{2}")    
         busca = padrao.match(self.cpf)
         if busca :
-            print('ok')
+            print('cpf valido')
+        else:
+            raise ValueError('cpf invalido')
+    def valida_email(self): 
+        padrao = re.compile('[A-Za-z0-9_.-]+@[A-Za-z0-9_]+\.[a-z]{2,3}')
+        busca = padrao.match(self.email)
+        if busca :
+            print('email valido')
+        else :
+            raise ValueError('email invalido')
+    def valida_idade (self):
+        if self.idade <= 0 or self.idade >=130:
+            raise ValueError('idade invalida')
+        else:
+            if self.idade <18 :
+                raise ValueError('nao aceitamos menores de idade')
+            else:
+                print('idade valida')
 class CheckIn():
     pass
 class CheckOut():
     pass
 class ListaHostedes(): 
     pass
-h1=Hospede('sara','111.222.333-66',14,'sara@gmail.com')
+h1=Hospede('sara','11122233366',12,'sara@gmail.com')
 h1.valida_cpf()
+h1.valida_email()
+h1.valida_idade()
