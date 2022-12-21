@@ -14,20 +14,25 @@
 # OBS: Fique atento aos impedimentos dos métodos
 # OBS: Faça a impressão dos elementos
 import re
+
+
 class Hospede :
-    def __init__(self,nome,cpf,idade,email) :
-        self.nome=nome
-        self.cpf=cpf
-        self.idade=idade
-        self.email=email
-    def valida_cpf(self):
-        self.cpf = str(self.cpf)
-        padrao = re.compile("([0-9]{3}.?){2}[0-9]{3}-?[0-9]{2}")    
-        busca = padrao.match(self.cpf)
+    def __init__(self,nome,cpf,idade,email):
+        self.validar_cpf(cpf)
+        self.nome = nome
+        self.cpf = str(cpf)
+        self.idade = idade
+        self.email = email
+
+    def validar_cpf(self, cpf):
+        # self.cpf = str(self.cpf)
+        padrao = re.compile("[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}")    
+        busca = padrao.match(cpf)
         if busca :
-            print('cpf valido')
+            self.cpf = cpf
         else:
             raise ValueError('cpf invalido')
+
     def valida_email(self): 
         padrao = re.compile('[A-Za-z0-9_.-]+@[A-Za-z0-9_]+\.[a-z]{2,3}')
         busca = padrao.match(self.email)
@@ -35,6 +40,7 @@ class Hospede :
             print('email valido')
         else :
             raise ValueError('email invalido')
+
     def valida_idade (self):
         if self.idade <= 0 or self.idade >=130:
             raise ValueError('idade invalida')
@@ -43,6 +49,10 @@ class Hospede :
                 raise ValueError('nao aceitamos menores de idade')
             else:
                 print('idade valida')
+
+    def __str__(self):
+        return f'Nome: {self.nome}\nCPF: {self.cpf}\nIdade: {self.idade}\nE-mail: {self.email}'
+
 class CheckIn():
     def __init__(self,data_entrada):
         self.data_entrada = data_entrada
@@ -54,6 +64,7 @@ class CheckIn():
             print("Data válida")
         else:
             raise ValueError ("Data inválida")
+
 class CheckOut():
     def __init__(self,data_saida):
         self.data_saida = data_saida
@@ -68,3 +79,6 @@ class CheckOut():
     
 class ListaHostedes():
     pass
+
+hospede = Hospede('joao','111.222.333-44', 18,'monteirowelley7@gmail.com')
+print(hospede)
