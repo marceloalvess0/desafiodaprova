@@ -58,3 +58,4 @@ class CheckOut(Hospede):
     pass
 class ListaHostedes():
     pass
+h1 = Hospede('nome','11122233344',16,'sara@gmail.com')
