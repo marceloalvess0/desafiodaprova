@@ -14,58 +14,108 @@
 # OBS: Fique atento aos impedimentos dos métodos
 # OBS: Faça a impressão dos elementos
 import re
+import datetime
 class Hospede :
     def __init__(self,nome,cpf,idade,email) :
         self.nome=nome
-        self.cpf=cpf
-        self.idade=idade
-        self.email=email
-    def valida_cpf(self):
-        self.cpf = str(self.cpf)
+        self.cpf=self.valida_cpf(cpf)
+        self.idade=self.valida_idade(idade)
+        self.email=self.valida_email(email)
+    def valida_cpf(self,cpf):
+        self.cpf = str(cpf)
         padrao = re.compile("([0-9]{3}.?){2}[0-9]{3}-?[0-9]{2}")    
-        busca = padrao.match(self.cpf)
+        busca = padrao.match(cpf)
         if busca :
             print('cpf valido')
+            self.cpf = cpf
         else:
             raise ValueError('cpf invalido')
-    def valida_email(self): 
+    def valida_email(self,email): 
         padrao = re.compile('[A-Za-z0-9_.-]+@[A-Za-z0-9_]+\.[a-z]{2,3}')
-        busca = padrao.match(self.email)
+        busca = padrao.match(email)
         if busca :
             print('email valido')
+            self.email=email
         else :
             raise ValueError('email invalido')
-    def valida_idade (self):
-        if self.idade <= 0 or self.idade >=130:
+    def valida_idade (self,idade):
+        if idade <= 0 or idade >=130:
             raise ValueError('idade invalida')
         else:
-            if self.idade <18 :
+            if idade <18 :
                 raise ValueError('nao aceitamos menores de idade')
             else:
                 print('idade valida')
+                self.idade = idade
 class CheckIn():
     def __init__(self,data_entrada):
         self.data_entrada = data_entrada
         
     def valida_data(self):
         padrao = re.compile("[1-3][0-9]/[0-1][0-9]/[1-9][0-9]{3}")
-        match = padrao.match()
+        match = padrao.match(self.data_entrada)
         if match:
-            print("Data válida")
+            print("Data válida de entrada")
+            dia = int(self.data_entrada[0:2])
+            mes = int(self.data_entrada[3:5])
+            ano = int(self.data_entrada[6::])
+            entrada=datetime.date(ano,mes,dia)
+            self.e=entrada.day
+            print(entrada)
         else:
             raise ValueError ("Data inválida")
 class CheckOut():
     def __init__(self,data_saida):
-        self.data_saida = data_saida
-        
+        self.data_saida=data_saida
     def valida_data(self):
         padrao = re.compile("[1-3][0-9]/[0-1][0-9]/[1-9][0-9]{3}")
-        match = padrao.match()
-        if match:
-            print("Data válida")
+        match = padrao.match(self.data_saida)
+        if match :
+            print("Data válida de saida")
+            dia = int(self.data_saida[0:2])
+            mes = int(self.data_saida[3:5])
+            ano = int(self.data_saida[6::])
+            saida=datetime.date(ano,mes,dia)
+            self.s=saida.day
+            print(saida)
         else:
             raise ValueError ("Data inválida")
-    
+    def quant_dias (self,data_entrada,data_saida):
+        if self.valida_data :
+            dia = int(data_entrada[0:2])
+            mes = int(data_entrada[3:5])
+            ano = int(data_entrada[6::])
+            self.entrada=datetime.date(ano,mes,dia)
+            dia2 = int(data_saida[0:2])
+            mes2 = int(data_saida[3:5])
+            ano2 = int(data_saida[6::])
+            self.saida=datetime.date(ano2,mes2,dia2)
+            self.conta= self.saida-self.entrada
+            print(f'voce ficou {self.conta.days} dias')
+    def conta_pagar(self,dinhero):
+        print('a estadia é 40 reais por dia')
+        conta = 40 * self.conta.days
+        if dinhero <=0 or dinhero < conta:
+            raise ValueError('dinhero invalido')
+        elif dinhero == conta : 
+            print('sua conta foi paga')
+        if self.entrada == self.saida :
+            conta = 40.0 * 1
+            if dinhero == conta : 
+                print('sua conta foi paga')
+            elif dinhero > conta :
+                troco=dinhero - conta
+                print(f'seu troco foi {troco}')
+        else :
+            troco=dinhero - conta
+            print(f'seu troco foi {troco}')
 class ListaHostedes():
-    pass
-h1 = Hospede('nome','11122233344',16,'sara@gmail.com')
+   pass
+
+h1 = Hospede('nome','11122233344',18,'sara@gmail.com')
+h1 = CheckIn('10/03/2022')
+h1.valida_data()
+h1 = CheckOut('10/04/2022')
+h1.valida_data()
+h1.quant_dias('10/03/2022','10/04/2022')
+h1.conta_pagar(4000)
