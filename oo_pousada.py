@@ -19,6 +19,7 @@ import re
 class Hospede :
     def __init__(self,nome,cpf,idade,email):
         self.validar_cpf(cpf)
+        self.validar_email(email)
         self.nome = nome
         self.cpf = str(cpf)
         self.idade = idade
@@ -26,22 +27,25 @@ class Hospede :
 
     def validar_cpf(self, cpf):
         # self.cpf = str(self.cpf)
-        padrao = re.compile("[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}")    
+        padrao = re.compile("[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}")#padão do cpf   
         busca = padrao.match(cpf)
-        if busca :
-            self.cpf = cpf
+        if busca:
+            if len(cpf) == 14 or len(cpf) == 11:#verificação do tamanho do cpf
+                self.cpf = cpf
+            else:
+                raise ValueError('Tamanho de cpf invalido')
         else:
-            raise ValueError('cpf invalido')
+            raise ValueError('Formato de cpf invalido')
 
-    def valida_email(self): 
+    def validar_email(self, email): 
         padrao = re.compile('[A-Za-z0-9_.-]+@[A-Za-z0-9_]+\.[a-z]{2,3}')
-        busca = padrao.match(self.email)
+        busca = padrao.match(email)
         if busca :
-            print('email valido')
+            self.email = email
         else :
             raise ValueError('email invalido')
 
-    def valida_idade (self):
+    def validar_idade (self):
         if self.idade <= 0 or self.idade >=130:
             raise ValueError('idade invalida')
         else:
