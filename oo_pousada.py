@@ -14,12 +14,14 @@
 # OBS: Fique atento aos impedimentos dos métodos
 # OBS: Faça a impressão dos elementos
 import re
+from datetime import datetime
 class Hospede :
     def __init__(self,nome,cpf,idade,email) :
-        self.nome=nome
-        self.cpf=cpf
-        self.idade=idade
-        self.email=email
+        self.nome=nome ##encapsular
+        self.cpf=cpf ##encapsular
+        self.idade=idade ##encapsular
+        self.email=email ##encapsular
+        
     def valida_cpf(self):
         self.cpf = str(self.cpf)
         padrao = re.compile("([0-9]{3}.?){2}[0-9]{3}-?[0-9]{2}")    
@@ -54,6 +56,11 @@ class CheckIn():
             print("Data válida")
         else:
             raise ValueError ("Data inválida")
+    def formata_data(self):
+        self.data_entrada = datetime.strptime(self.data_entrada, "%d/%m/%Y")
+        print(self.data_entrada)
+        return self.data_entrada
+    
 class CheckOut():
     def __init__(self,data_saida):
         self.data_saida = data_saida
@@ -65,6 +72,19 @@ class CheckOut():
             print("Data válida")
         else:
             raise ValueError ("Data inválida")
+    def formata_data(self):
+        self.data_saida = datetime.strptime(self.data_saida, "%d/%m/%Y")
+        print(self.data_saida)
+        return self.data_saida
     
-class ListaHostedes():
+class ListaHospedes():
     pass
+
+
+hospede = CheckIn("10/09/2000")
+dia_entrada = hospede.formata_data()
+hospede1 = CheckOut("13/09/2000")
+dia_saida =hospede1.formata_data()
+quantidade_dias = abs(dia_saida - dia_entrada)
+print(hospede)
+print(quantidade_dias)
