@@ -13,18 +13,8 @@
 # OBS: Faça todas as validações
 # OBS: Fique atento aos impedimentos dos métodos
 # OBS: Faça a impressão dos elementos
-import re
 class Hospede :
-    def __init__(self,nome,cpf,idade,email) :
-        self.nome=nome
-        self.cpf=cpf
-        self.idade=idade
-        self.email=email
-    def valida_cpf(self):
-        padrao = re.compile("([0-9]{3}.?){2}[0-9]{3}-?[0-9]{2}")    
-        busca = padrao.match(self.cpf)
-        if busca :
-            print('ok')
+    pass
 class CheckIn():
     def __init__(self,data_entrada):
         self.data_entrada = data_entrada
@@ -38,7 +28,5 @@ class CheckIn():
             raise ValueError ("Data inválida")
 class CheckOut(Hospede):
     pass
-class ListaHostedes(): 
+class ListaHostedes():
     pass
-h1=Hospede('sara','111.222.333-66',14,'sara@gmail.com')
-h1.valida_cpf()
