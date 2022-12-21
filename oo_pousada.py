@@ -44,12 +44,17 @@ class Hospede :
             else:
                 print('idade valida')
 class CheckIn():
+    def __init__(self,data_entrada):
+        self.data_entrada = data_entrada
+        
+    def valida_data(self):
+        padrao = re.compile("[1-3][0-9]/[0-1][0-9]/[1-9][0-9]{3}")
+        match = padrao.match()
+        if match:
+            print("Data válida")
+        else:
+            raise ValueError ("Data inválida")
+class CheckOut(Hospede):
     pass
-class CheckOut():
+class ListaHostedes():
     pass
-class ListaHostedes(): 
-    pass
-h1=Hospede('sara','11122233366',12,'sara@gmail.com')
-h1.valida_cpf()
-h1.valida_email()
-h1.valida_idade()
